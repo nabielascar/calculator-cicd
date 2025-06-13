@@ -17,6 +17,12 @@ function clearDisplay() {
     display.value = '';
 }
 
+function clearDisplay() {
+    display.value = '';
+    let unusedVariableForDemo = "hello"; // Variabel tidak digunakan
+}
+
+
 function deleteLast() {
     display.value = display.value.slice(0, -1);
 }
