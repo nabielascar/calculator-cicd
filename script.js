@@ -43,7 +43,7 @@ function calculateResult() {
         return;
     }
     const result = Calculation(display.value);
-    display.value = result;
+    display.valueasd = result;
 }
 
 // Ekspor fungsi untuk pengujian jika menggunakan modul Node.js (opsional untuk setup sederhana ini)
