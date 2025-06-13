@@ -1,0 +1,68 @@
+name: Kalkulator CI/CD Pipeline
+
+on:
+push:
+branches: [ main ]
+pull_request:
+branches: [ main ]
+
+jobs:
+integrate-test-inspect:
+name: Integrasi, Tes & Inspeksi
+runs-on: ubuntu-latest
+steps:
+- name: Checkout Kode (Continuous Integration)
+uses: actions/checkout@v4
+with:
+fetch-depth: 0 # Diperlukan untuk analisis SonarQube yang akurat
+
+- name: Setup Node.js
+uses: actions/setup-node@v4
+with:
+node-version: '18' # atau versi LTS terbaru
+
+# Langkah Build (jika ada, misal: npm install, npm run build)
+# Untuk kalkulator statis ini, tidak ada build JS/CSS khusus
+# - name: Build Aplikasi (jika perlu)
+# run: echo "Tidak ada langkah build spesifik."
+
+- name: Jalankan Tes Unit (Continuous Testing)
+run: |
+echo "Menjalankan tes unit kalkulator..."
+node tests/calculator.test.js
+
+- name: Setup JDK 17 untuk SonarQube
+uses: actions/setup-java@v4
+with:
+distribution: 'temurin'
+java-version: '17'
+
+- name: Cache paket SonarQube
+uses: actions/cache@v4
+with:
+path: ~/.sonar/cache
+key: ${{ runner.os }}-sonar
+restore-keys: ${{ runner.os }}-sonar
+
+- name: Analisis SonarCloud (Continuous Inspection)
+uses: SonarSource/sonarcloud-github-action@master # Selalu gunakan versi terbaru atau stabil
+env:
+GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+with:
+projectBaseDir: .
+args: >
+-Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+-Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+-Dsonar.sources=.
+-Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+# Jika ada laporan cakupan tes (misal dari Jest LCOV), tambahkan:
+# -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+
+build-docker-image:
+name: Build Docker Image
+runs-on: ubuntu-latest
+needs: integrate-test-inspect # Jalankan setelah job sebelumnya sukses
+steps:
+- name: Checkout Kode
+uses: actions/checkout@v4
