@@ -6,7 +6,7 @@ COPY index.html /usr/share/nginx/html/
 COPY style.css /usr/share/nginx/html/
 COPY script.js /usr/share/nginx/html/
 # Jika ada direktori 'tests' yang ingin ikut disajikan (opsional)
-# COPY tests/ /usr/share/nginx/html/tests/
+COPY tests/ /usr/share/nginx/html/tests/
 
 
 # Expose port 80
