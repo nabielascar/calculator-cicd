@@ -17,10 +17,6 @@ function clearDisplay() {
     display.value = '';
 }
 
-function clearDisplay() {
-    display.value = '';
-    let unusedVariableForDemo = "hello"; // Variabel tidak digunakan
-}
 
 
 function deleteLast() {
