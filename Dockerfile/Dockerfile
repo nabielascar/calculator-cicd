@@ -1,5 +1,5 @@
 # Gunakan base image Nginx yang ringan
-FROM nginx:root
+FROM nginx:alpine
 
 # Salin file HTML, CSS, dan JavaScript ke direktori default Nginx
 COPY index.html /usr/share/nginx/html/
