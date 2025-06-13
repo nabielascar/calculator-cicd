@@ -42,7 +42,7 @@ function calculateResult() {
     if (display.value === '' || display.value === 'Error') {
         return;
     }
-    const result = performCalculation(display.value);
+    const result = Calculation(display.value);
     display.value = result;
 }
 
