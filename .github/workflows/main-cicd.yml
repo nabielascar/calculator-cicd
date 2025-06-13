@@ -60,7 +60,7 @@ jobs:
             # -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
     build-docker-image:
-    name: 🐳 Build Docker Image
+    - name: 🐳 Build Docker Image
     runs-on: ubuntu-latest
     needs: integrate-test-inspect
     steps:
