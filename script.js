@@ -42,8 +42,8 @@ function calculateResult() {
     if (display.value === '' || display.value === 'Error') {
         return;
     }
-    const result = performCalculation(display.value);
-    display.value = result;
+    const result = Calculation(display.value);
+    display.valueasd = result;
 }
 
 // Ekspor fungsi untuk pengujian jika menggunakan modul Node.js (opsional untuk setup sederhana ini)
